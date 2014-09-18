@@ -6,4 +6,5 @@ The purpose with this course is to illustrate how developing work can be done in
 Teacher: Bertil Lindvall
 
 Course homepage: http://www.eit.lth.se/course/eitf40
+
 Project homepage: http://www.eit.lth.se/fileadmin/eit/courses/edi021/Sammanfattning/2011/LP3/Grupp2/index_gb.html
