@@ -1,0 +1,68 @@
+\documentclass[a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{verbatim}
+\usepackage{fancyvrb}
+\usepackage{hyperref}
+\usepackage[pdftex]{graphicx}
+\fvset{tabsize=4}
+\fvset{fontsize=\small}
+
+\newif\ifpdf
+\ifx\pdfoutput\undefined
+  \psffalse
+\else
+  \pdftrue
+\fi
+\ifpdf
+  \usepackage[pdftex]{graphics}
+\else
+  \usepackage{graphics}
+\fi
+
+\title{Kravspecifikation: \\ Digitala Projekt (EITF40)}
+\author{\\Jakub Gorski, D07 (dt07jg8@student.lth.se)\\
+Patrik Thoresson, D07 (dt07pt2@student.lth.se)\\\\Handledare: Bertil Lindvall}
+\date{Date Submitted: 2011-01-21}
+
+\begin{document}
+\maketitle
+\thispagestyle{empty}
+\newpage
+
+\pagenumbering{arabic}
+
+\section{Introduktion}
+Syftet med projektet är att skapa en krets som förvränger ljud från en gitarr i olika valbara effekter. Kretsen ska även fungera som en stämapparat där frekvensen från gitarren anges samt vilken frekvens strängen bör ha. På kretsen implementeras en 8-bit DSP på en ATmega processor som kommer kunna användas som en gitarrpedal. Med tid över kommer denna DSP även uppfylla funktionen av en stämmapparat. Effekter som echo och reverb kommer kräva mellanlagring av data, därav kommer ett externt minne på 128K att användas.
+
+\section{Komponenter}
+Processorn vi tänkt använda oss av är en ATmega16 som har en inbyggd A/D-omvandlare, dock så krävs det en extern D/A-omvandlare.
+\begin{itemize}
+\item TLC7524, 8-bit D/A Converter. För att kunna få ut den förvrängda signalen från AVR:en så måste denna konverteras om till en analog signal.
+\item ATmega16.
+\item 431000, 128K x 8 Parallell Bit CMOS SRAM. I syfte att ge möjlighet till delay effekter som kommer kräva mellanlagring av digital audio data.
+\item cd4042b, Clocked "D" Latch. Knapparna ämnade åt byte mellan funktioner kommer behöva var sin D-vippa för omslagning.
+\item Knappar för byte mellan funktioner.
+\item Multiplexer (MUX) antingen cd4051b, cd4052b eller cd4053b. För omslagning mellan externa minnen.
+\item Minnesbuss. För att kunna kommunicera med minnena över gemensamma pin-kontakter.
+\item SHARP Dot-Matrix LCD Units 16x1 Dot matrix. Ge information om funktionen som används i nuläget.
+\item 7x LED dioder. Varav 4x orange, 2x röda och 1x grön. Meddelar om nuvarande offset i funktionen "stämapparat".
+\item Ström switch för avstängning av krets.
+\item Kristaller som motsvarar frekvenserna hos tonerna E A D G B E på en gitarr.
+\item Strömförsörjning (9V).
+\item 3.5mm mono TRS anslutning. Input till A/D omvandlaren.
+
+\end{itemize}
+
+\section{Kravspecifikation}
+
+\begin{itemize}
+\item Ljudet från en gitarr ska kunna förvrängas till olika förbestämda effekter. 
+\item Kretsen ska kunna användas som en stämapparat, där 7 lysdioder indikerar hurvida instrumentet är stämt i förhållande till den önskade frekvensen.
+\item För att kunna skifta mellan effekterna används knappar varpå information kommer att visas på LCD displayen.
+\item Instrumentet kommer att anslutas via on 3.5mm mono TRS anslutning.
+\item När kretsen inte är använd efter 1 minut kommer den att gå in i ett standby läge.
+\end{itemize}
+
+\end{document}
